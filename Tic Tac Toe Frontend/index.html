@@ -1,13 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css" />
-
-    <title>Tic tac toe</title>
+    <title>Tic Tac Toe Game</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    <h2>Tic Tac Toe Game</h2>
+    
+    <div id="playerSetup">
+        <input type="text" id="playerName" placeholder="Enter your name">
+    </div>
+
+    <div id="startNewGame">
+        <button id="gameStart" onclick="startGame()">StartGame</button>
+    </div>
+
+    <div id="randomGameConnect">
+        <button id="connectToRandomGame" onclick="connectToRandomGame()">Connect to random Game</button>
+    </div>
+    
+    <div id="gameConnect">
+        <input type="text" id="gameIdInput" placeholder="Enter Game ID to connect">
+        <button id="connectToGame" onclick="connectToGame()">Connect to Game</button>
+    </div>
+    
+    <div id="gameBoard">
+        <div class="row">
+            <div class="cell" data-cell-index="0"></div>
+            <div class="cell" data-cell-index="1"></div>
+            <div class="cell" data-cell-index="2"></div>
+        </div>
+        <div class="row">
+            <div class="cell" data-cell-index="3"></div>
+            <div class="cell" data-cell-index="4"></div>
+            <div class="cell" data-cell-index="5"></div>
+        </div>
+        <div class="row">
+            <div class="cell" data-cell-index="6"></div>
+            <div class="cell" data-cell-index="7"></div>
+            <div class="cell" data-cell-index="8"></div>
+        </div>
+    </div>
+    
+    <div id="statusMessage"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
     <script src="index.js"></script>
 </body>
 </html>

@@ -13,6 +13,11 @@ namespace Tic_Tac_Toe.Service
         private static readonly Func<InvalidDataException> PLAYER_2_ALREADY_SET = () => new InvalidDataException("There is already a player2.");
         private static readonly Func<InvalidDataException> GAME_FINISHED = () => new InvalidDataException("Game already finished.");
 
+        public TicToe[,] GetGameBoardCopy(string gameId)
+        {
+            return GetGameById(gameId).GetBoardCopy();
+        }
+
         public Game CreateGame(Player player1)
         {
             Game game = new(BOARD_SIDE_SIZE)
@@ -29,11 +34,7 @@ namespace Tic_Tac_Toe.Service
 
         public Game ConnectToGame(Player player2, string gameId)
         {
-            if (!GameStorage.Instance.Games.TryGetValue(gameId, out Game? game))
-                throw GAME_DOESNT_EXIST_EXCEPTION();
-
-            if (game == null)
-                throw GAME_DOESNT_EXIST_EXCEPTION();
+            Game game = GetGameById(gameId);
 
             if (game.Player2 != null)
                 throw PLAYER_2_ALREADY_SET();
@@ -43,7 +44,7 @@ namespace Tic_Tac_Toe.Service
 
         public Game ConnectToRandomGame(Player player2)
         {
-            Game? game = GameStorage.Instance
+            Game game = GameStorage.Instance
                 .Games
                 .Values
                 .Where(_ => _.Player2 == null && _.GameState == GameState.NEW)
@@ -55,8 +56,7 @@ namespace Tic_Tac_Toe.Service
 
         public GameMoveStatus MakeMove(GameMove gameMove)
         {
-            Game game = GameStorage.FindGameInStorage(gameMove.GameId)
-                ?? throw GAME_DOESNT_EXIST_EXCEPTION();
+            Game game = GetGameById(gameMove.GameId);
 
             if (game.GameState == GameState.FINISHED)
                 throw GAME_FINISHED();
@@ -70,6 +70,12 @@ namespace Tic_Tac_Toe.Service
                 Game = game,
                 MoveStatus = movestatus,
             };
+        }
+
+        private static Game GetGameById(string gameId)
+        {
+            return GameStorage.FindGameInStorage(gameId)
+                ?? throw GAME_DOESNT_EXIST_EXCEPTION();
         }
 
         private static Game SetPlayer2(Game game, Player player2)

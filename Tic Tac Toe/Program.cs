@@ -12,6 +12,21 @@ builder.Services.AddSignalR();
 
 builder.Services.AddScoped<GameService, GameService>();
 
+// builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowSpecificOrigin",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:5500", "http://127.0.0.1:5500")
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+                   .AllowCredentials();
+        });
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,8 +40,10 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseCors("AllowSpecificOrigin");
+
 app.MapControllers();
 
-app.MapHub<GameHub>("/gameHub");
+app.MapHub<GameHub>("/GameHub");
 
 app.Run();

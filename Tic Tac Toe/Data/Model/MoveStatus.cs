@@ -2,9 +2,9 @@
 {
     public enum MoveStatus
     {
-        MADE,
-        WIN,
-        DRAW,
-        ILLEGAL
+        MADE = 0,
+        WIN = 1,
+        DRAW = 2,
+        ILLEGAL = 3
     }
 }

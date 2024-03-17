@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.OpenApi;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Swashbuckle.AspNetCore.SwaggerGen;
 namespace Tic_Tac_Toe.Data.Model
 {
     public class Game(int boardSideSize)
@@ -12,9 +13,9 @@ namespace Tic_Tac_Toe.Data.Model
         public required GameState GameState { get; set; }
         private TicToe[,] Board { get; set; } = new TicToe[boardSideSize, boardSideSize];
 
-        public TicToe Winner { get; set; }
+        public TicToe CurrentMove { get; set; } = TicToe.X; // X is first
 
-        public int AmountOfMovesDone { get; set; } = 0;
+        private int AmountOfMovesDone { get; set; } = 0;
 
         public MoveStatus MakeMove(GameMove gameMove)
         {
@@ -22,22 +23,38 @@ namespace Tic_Tac_Toe.Data.Model
                 gameMove.CoordinateX >= GetBoardSideLength() ||
                 gameMove.CoordinateY < 0 ||
                 gameMove.CoordinateY >= GetBoardSideLength() ||
-                Board[gameMove.CoordinateX, gameMove.CoordinateY] != TicToe.NONE)
+                Board[gameMove.CoordinateX, gameMove.CoordinateY] != TicToe.NONE ||
+                !CheckIfCurrentTurn(gameMove.MoveType))
                 return MoveStatus.ILLEGAL;
 
             Board[gameMove.CoordinateX, gameMove.CoordinateY] = gameMove.MoveType;
             ++AmountOfMovesDone;
 
-            if (AmountOfMovesDone >= GetBoardSideLength())
+            if (AmountOfMovesDone >= GetBoardSideLength() * GetBoardSideLength())
                 return MoveStatus.DRAW;
 
             if (CheckWinner(gameMove.MoveType, Board, GetBoardSideLength()))
-            {
-                Winner = gameMove.MoveType;
                 return MoveStatus.WIN;
-            }
 
             return MoveStatus.MADE;
+        }
+
+        public TicToe[,] GetBoardCopy()
+        {
+            return (TicToe[,])Board.Clone();
+        }
+
+        private bool CheckIfCurrentTurn(TicToe moveType)
+        {
+            if (moveType != TicToe.X && moveType != TicToe.O)
+                return false;
+
+            if (CurrentMove != moveType) 
+                return false;
+
+            CurrentMove = moveType == TicToe.X ? TicToe.O : TicToe.X;
+
+            return true;
         }
 
         private int GetBoardSideLength()
