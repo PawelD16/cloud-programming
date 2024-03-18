@@ -1,4 +1,4 @@
-const url = "https://localhost:44325";
+const url = "http://localhost:8080";
 
 const apiUrl = `${url}/api/Game`;
 let playerName;

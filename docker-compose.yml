@@ -5,7 +5,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "8000:80"
+      - "8080:8080"
     networks:
       - app-network
 
@@ -14,10 +14,11 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - "5500:80"
     networks:
       - app-network
 
 networks:
   app-network:
     driver: bridge
+
