@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Tic_Tac_Toe.Controllers.Dto;
+using Tic_Tac_Toe.Data.Dto;
 using Tic_Tac_Toe.Data.Model;
 using Tic_Tac_Toe.Service;
 using Tic_Tac_Toe.SignalRConfig;

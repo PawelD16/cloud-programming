@@ -1,6 +1,6 @@
 ﻿using Tic_Tac_Toe.Data.Model;
 
-namespace Tic_Tac_Toe.Controllers.Dto
+namespace Tic_Tac_Toe.Data.Dto
 {
     public class ConnectionRequest
     {
