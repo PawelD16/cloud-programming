@@ -65,7 +65,6 @@ namespace Tic_Tac_Toe.Controllers
             {
                 GameMove = gameMove,
                 MoveStatus = gameMoveStatus.MoveStatus
-
             };
 
             if (gameMoveStatus.MoveStatus == MoveStatus.WIN)

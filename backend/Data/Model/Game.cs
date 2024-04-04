@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.OpenApi;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Swashbuckle.AspNetCore.SwaggerGen;
-namespace Tic_Tac_Toe.Data.Model
+﻿namespace Tic_Tac_Toe.Data.Model
 {
     public class Game(int boardSideSize)
     {
