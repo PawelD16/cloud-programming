@@ -22,10 +22,6 @@ builder.Services.AddCors(options =>
             builder.WithOrigins(
                     "http://localhost:5500",
                     "https://localhost:5500",
-                    "http://localhost:8081",
-                    "https://localhost:8081",
-                    "http://localhost:8080",
-                    "https://localhost:8080",
                     "http://localhost:3000",
                     "https://localhost:3000"
                 )
