@@ -1,6 +1,6 @@
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
-const URL = "http://3.219.194.144:8080";
+const URL = "http://35.174.151.164:8080";
 
 const API_BASE_URL = `${URL}/api/Game`;
 
