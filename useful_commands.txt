@@ -1,0 +1,7 @@
+Get instances IDs and IPs -> aws ec2 describe-instances --query "Reservations[*].Instances[*].[InstanceId,PublicIpAddress]" --output text
+
+Stopping instance -> aws ec2 stop-instances --instance-ids <id-instancji>
+
+stop all aws instances -> aws ec2 describe-instances --query "Reservations[*].Instances[*].InstanceId" --output text | xargs aws ec2 stop-instances --instance-ids
+
+ami check url -> https://api.netcubed.de/latest/ami/lookup?platform=amzn2
