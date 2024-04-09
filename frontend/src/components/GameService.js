@@ -1,6 +1,10 @@
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
-const URL = "http://35.174.151.164:8080";
+const method = process.env.METHOD || "http";
+const environmentIpAddress = process.env.IP_ADDRESS || "localhost";
+const backendPort = parseInt(process.env.BACKEND_PORT) || 8080;
+
+const URL = `${method}://${environmentIpAddress}:${backendPort}`;
 
 const API_BASE_URL = `${URL}/api/Game`;
 

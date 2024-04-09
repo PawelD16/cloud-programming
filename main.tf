@@ -1,3 +1,4 @@
+# Definicja dostawcy i wersji konfiguracji 
 terraform {
   required_providers {
     aws = {
@@ -7,11 +8,12 @@ terraform {
   }
 }
 
+# Definicja regionu, gdzie tworzone będą zasoby AWS'a
 provider "aws" {
   region = "us-east-1"
 }
 
-
+# Definicja Virtual Private Cloud 
 resource "aws_vpc" "app_vpc" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_support   = true
@@ -21,6 +23,7 @@ resource "aws_vpc" "app_vpc" {
   }
 }
 
+# Definicja bramhy pozwalającej na komunikację 
 resource "aws_internet_gateway" "tic_tac_toe_igw" {
   vpc_id = aws_vpc.app_vpc.id
   tags = {

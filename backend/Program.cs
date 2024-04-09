@@ -1,8 +1,11 @@
-﻿using Tic_Tac_Toe.Controllers;
-using Tic_Tac_Toe.Service;
+﻿using Tic_Tac_Toe.Service;
 using Tic_Tac_Toe.SignalRConfig;
+
 var builder = WebApplication.CreateBuilder(args);
 
+const string DEFAULT_METHOD = "http";
+const string DEFAULT_IP_ADDRESS = "localhost";
+const int DEFAULT_PORT = 80;
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -14,24 +17,23 @@ builder.Services.AddScoped<GameService, GameService>();
 
 // builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
+string method = Environment.GetEnvironmentVariable("METHOD") ?? DEFAULT_METHOD;
+string environmentIpAddress = Environment.GetEnvironmentVariable("IP_ADDRESS") ?? DEFAULT_IP_ADDRESS;
+
+if (!int.TryParse(Environment.GetEnvironmentVariable("FRONTEND_PORT") ?? DEFAULT_PORT.ToString(), out int frontendPort))
+{
+    frontendPort = DEFAULT_PORT;
+}
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowSpecificOrigin",
         builder =>
         {
-            builder.WithOrigins(
-                    "http://localhost:5500",
-                    "https://localhost:5500",
-                    "http://localhost:3000",
-                    "https://localhost:3000",
-                    "http://35.174.151.164:5500",
-                    "https://35.174.151.164:5500",
-                    "http://35.174.151.164:3000",
-                    "https://35.174.151.164:3000"
-                )
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials();
+            builder.WithOrigins($"{method}://{environmentIpAddress}:{frontendPort}")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
         });
 });
 
