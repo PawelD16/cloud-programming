@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # Definicja dostawcy i wersji konfiguracji 
-=======
-# Określa dostawcę/ów dla Terraforma
->>>>>>> 725f5c59e729c21521c6ab7c38b3538fb23beda7
 terraform {
   required_providers {
     aws = {
@@ -12,21 +8,13 @@ terraform {
   }
 }
 
-<<<<<<< HEAD
 # Definicja regionu, gdzie tworzone będą zasoby AWS'a
-=======
-# Definiuje region, gdzie będą znadować się zasoby
->>>>>>> 725f5c59e729c21521c6ab7c38b3538fb23beda7
 provider "aws" {
   region = "us-east-1"
 }
 
-<<<<<<< HEAD
-# Definicja Virtual Private Cloud 
-=======
 # Tworzy Virtual Private Cloud, które pozwala na DNS i nazwy hostów.
 # Włącza wsparcie dla DNS i nazw hostów DNS wewnątrz VPC
->>>>>>> 725f5c59e729c21521c6ab7c38b3538fb23beda7
 resource "aws_vpc" "app_vpc" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_support   = true
@@ -36,11 +24,7 @@ resource "aws_vpc" "app_vpc" {
   }
 }
 
-<<<<<<< HEAD
-# Definicja bramhy pozwalającej na komunikację 
-=======
 # Brama umożliwiające łączenie się VPC z Internetem
->>>>>>> 725f5c59e729c21521c6ab7c38b3538fb23beda7
 resource "aws_internet_gateway" "tic_tac_toe_igw" {
   vpc_id = aws_vpc.app_vpc.id
   tags = {
