@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 const string DEFAULT_METHOD = "http";
 const string DEFAULT_IP_ADDRESS = "localhost";
-const int DEFAULT_PORT = 80;
+const int DEFAULT_PORT = 3000;
 
 // Add services to the container.
 
