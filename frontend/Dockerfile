@@ -1,15 +1,19 @@
 FROM node:16.3.0-alpine AS development
 
-ENV NODE_ENV development
-
-WORKDIR /react-app
+WORKDIR /react-app/
 
 # Installing dependencies
-COPY ./package*.json /react-app
-
+COPY ./package*.json /react-app/
 RUN npm install --verbose
 
 COPY . .
+
+ARG REACT_APP_METHOD
+ARG REACT_APP_IP_ADDRESS
+ARG REACT_APP_BACKEND_PORT
+ENV REACT_APP_METHOD=$REACT_APP_METHOD
+ENV REACT_APP_IP_ADDRESS=$REACT_APP_IP_ADDRESS
+ENV REACT_APP_BACKEND_PORT=$REACT_APP_BACKEND_PORT
 
 EXPOSE 3000
 

@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 const string DEFAULT_METHOD = "http";
 const string DEFAULT_IP_ADDRESS = "localhost";
 const int DEFAULT_PORT = 80;
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -21,9 +22,7 @@ string method = Environment.GetEnvironmentVariable("METHOD") ?? DEFAULT_METHOD;
 string environmentIpAddress = Environment.GetEnvironmentVariable("IP_ADDRESS") ?? DEFAULT_IP_ADDRESS;
 
 if (!int.TryParse(Environment.GetEnvironmentVariable("FRONTEND_PORT") ?? DEFAULT_PORT.ToString(), out int frontendPort))
-{
     frontendPort = DEFAULT_PORT;
-}
 
 builder.Services.AddCors(options =>
 {
