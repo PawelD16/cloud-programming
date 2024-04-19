@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "tic-tac-toe" {
+resource "aws_s3_bucket" "tic_tac_toe_app" {
     bucket = "tic_tac_toe_terraform"
     acl    = "private"
     tags = {
@@ -38,7 +38,7 @@ resource "aws_elastic_beanstalk_environment" "tic_tac_toe_env" {
     setting {
         namespace = "aws:autoscaling:launchconfiguration"
         name      = "IamInstanceProfile"
-        value = "LabInstanceProfile"
+        value     = "LabInstanceProfile"
     }
 
     # Add vpc and subnet
@@ -67,7 +67,6 @@ resource "aws_elastic_beanstalk_environment" "tic_tac_toe_env" {
         name      = "ServiceRole"
         value     = "LabRole"
     }
-
 
     ## Key pair
     setting {

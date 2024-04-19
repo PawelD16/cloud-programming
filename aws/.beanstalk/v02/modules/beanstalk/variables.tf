@@ -27,8 +27,8 @@ variable "subnet_id" {
 
 locals {
     app_env = {
-        METHOD          = "http"
-        IP_ADDRESS      = "${var.cname_prefix}.us-east-1.console.aws.amazon.com"
+        METHOD          = var.method
+        IP_ADDRESS      = aws_elastic_beanstalk_environment.tic_tac_toe_env.cname
         FRONTEND_PORT   = var.frontend_port
         BACKEND_PORT    = var.backend_port
   }

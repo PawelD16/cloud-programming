@@ -1,7 +1,3 @@
-variable "ssh_key" {
-  type = string
-}
-
 variable "cname_prefix" {
   type = string
 }
@@ -19,12 +15,4 @@ variable "frontend_port" {
 variable "method" {
     type    = string
     default = "http"
-}
-
-variable "vpc_id" {
-    type = string
-}
-
-variable "subnet_id" {
-    type = string
 }
