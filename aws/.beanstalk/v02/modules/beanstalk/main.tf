@@ -6,10 +6,27 @@ resource "aws_s3_bucket" "tic_tac_toe_app" {
     }
 }
 
+data "template_file" "docker_compose" {
+  template = file("${path.module}/docker-compose.tpl")
+
+  vars = {
+    METHOD          = var.method
+    IP_ADDRESS      = var.cname_prefix
+    FRONTEND_PORT   = var.frontend_port
+    BACKEND_PORT    = var.backend_port
+  }
+}
+
+resource "local_file" "docker_compose_yml" {
+  content  = data.template_file.docker_compose.rendered
+  filename = "${path.module}/docker-compose.yml"
+}
+
 resource "aws_s3_bucket_object" "tic_tac_toe_deployment" {
     bucket = aws_s3_bucket.tic_tac_toe_app.bucket
-    source = "${path.module}/docker-compose.yml"
-    key = "docker-compose.yml"
+    source = local_file.docker_compose_yml.filename
+    key    = "docker-compose.yml"
+    depends_on = [local_file.docker_compose_yml]
 }
 
 resource "aws_elastic_beanstalk_application" "tic_tac_toe_app" {
@@ -92,15 +109,9 @@ resource "aws_elastic_beanstalk_environment" "tic_tac_toe_env" {
     dynamic "setting" {
         for_each = local.app_env
         content {
-        namespace = "aws:elasticbeanstalk:application:environment"
-        name      = setting.key
-        value     = setting.value
+            namespace = "aws:elasticbeanstalk:application:environment"
+            name      = setting.key
+            value     = setting.value
         }
     }
 }
-
-
-
-
-
-
