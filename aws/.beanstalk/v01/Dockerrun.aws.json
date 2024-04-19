@@ -1,0 +1,32 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+      {
+        "name": "backend",
+        "image": "paweld16/cloud-programming-backend:latest",
+        "essential": true,
+        "memory": 512,
+        "portMappings": [
+          {
+            "hostPort": 8080,
+            "containerPort": 8080
+          }
+        ]
+      },
+      {
+        "name": "frontend",
+        "image": "paweld16/cloud-programming-frontend:latest",
+        "essential": "true",
+        "memory": 512,
+        "portMappings": [
+          {
+            "hostPort": 3000,
+            "containerPort": 3000
+          }
+        ]
+      }
+    ],
+    "volumes": [],
+    "family": ""
+  }
+  
