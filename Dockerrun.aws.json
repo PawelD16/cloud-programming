@@ -1,0 +1,76 @@
+{
+    "AWSEBDockerrunVersion": 3,
+    "containerDefinitions": [
+      {
+        "name": "backend",
+        "image": "paweld16/cloud-programming-backend:latest",
+        "essential": true,
+        "memory": 512,
+        "environment": [
+          {
+            "name": "ASPNETCORE_ENVIRONMENT",
+            "value": "Production"
+          },
+          {
+            "name": "METHOD",
+            "value": "http"
+          },
+          {
+            "name": "IP_ADDRESS",
+            "value": "35.174.151.164"
+          },
+          {
+            "name": "FRONTEND_PORT",
+            "value": "3000"
+          },
+          {
+            "name": "BACKEND_PORT",
+            "value": "8080"
+          }
+        ],
+        "portMappings": [
+          {
+            "hostPort": 8080,
+            "containerPort": 8080
+          }
+        ]
+      },
+      {
+        "name": "frontend",
+        "image": "paweld16/cloud-programming-frontend:latest",
+        "essential": true,
+        "memory": 512,
+        "environment": [
+          {
+            "name": "NODE_ENV",
+            "value": "production"
+          },
+          {
+            "name": "REACT_APP_METHOD",
+            "value": "http"
+          },
+          {
+            "name": "REACT_APP_IP_ADDRESS",
+            "value": "35.174.151.164"
+          },
+          {
+            "name": "REACT_APP_FRONTEND_PORT",
+            "value": "3000"
+          },
+          {
+            "name": "REACT_APP_BACKEND_PORT",
+            "value": "8080"
+          }
+        ],
+        "portMappings": [
+          {
+            "hostPort": 3000,
+            "containerPort": 3000
+          }
+        ]
+      }
+    ],
+    "volumes": [],
+    "family": ""
+  }
+  

@@ -1,8 +1,8 @@
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
-const METHOD = process.env.REACT_APP_METHOD  || "http";
-const ENVIRONMENT_IP_ADDRRESS = process.env.REACT_APP_IP_ADDRESS  || "localhost";
-const BACKEND_PORT = parseInt(process.env.REACT_APP_BACKEND_PORT) || 8080;
+const METHOD = process.env.REACT_APP_METHOD ?? "http";
+const ENVIRONMENT_IP_ADDRRESS = process.env.REACT_APP_IP_ADDRESS ?? "localhost";
+const BACKEND_PORT = parseInt(process.env.REACT_APP_BACKEND_PORT) ?? 8080;
 
 const URL = `${METHOD}://${ENVIRONMENT_IP_ADDRRESS}:${BACKEND_PORT}`;
 
