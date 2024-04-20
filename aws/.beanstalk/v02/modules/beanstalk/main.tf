@@ -86,7 +86,7 @@ resource "aws_elastic_beanstalk_environment" "tic-tac-toe-env" {
     setting {
         namespace = "aws:autoscaling:launchconfiguration"
         name      = "InstanceType"
-        value     = "t2.medium"
+        value     = "t2.micro"
     }
 
     ## Service role
