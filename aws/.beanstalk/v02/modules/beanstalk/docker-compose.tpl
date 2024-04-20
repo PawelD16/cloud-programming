@@ -23,7 +23,7 @@ services:
       - REACT_APP_FRONTEND_PORT=${FRONTEND_PORT}
       - REACT_APP_BACKEND_PORT=${BACKEND_PORT}
     ports:
-      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+      - "${FRONTEND_PORT}:3000"
     networks:
       - app-network
 

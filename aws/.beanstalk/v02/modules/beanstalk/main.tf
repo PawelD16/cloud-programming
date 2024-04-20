@@ -103,17 +103,12 @@ resource "aws_elastic_beanstalk_environment" "tic-tac-toe-env" {
         value     = "vockey"
     }
 
-    # Add listener port for backend 
+    # Listener setting for backend port 8080
     setting {
-        namespace = "aws:elb:listener:8080"
-        name      = "ListenerProtocol"
-        value     = "HTTP"
-    }
-
-    setting {
-        namespace = "aws:elb:listener:3000"
-        name      = "ListenerProtocol"
-        value     = "HTTP"
+        namespace = "aws:elb:listener:${var.backend_port}"
+    	name      = "ListenerProtocol"
+	value     = "HTTP"
+    	resource  = "AWSEBV2LoadBalancerListener"
     }
 
     # Define public IP
