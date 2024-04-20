@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    image: paweld16/cloud-programming-backend:latest
+    container_name: backend
+    environment:
+      - METHOD=http
+      - IP_ADDRESS=paweld16testowy.us-east-1.elasticbeanstalk.com
+      - FRONTEND_PORT=3000
+      - BACKEND_PORT=8080
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  frontend:
+    image: paweld16/cloud-programming-frontend:latest
+    container_name: frontend
+    environment:
+      - REACT_APP_METHOD=http
+      - REACT_APP_IP_ADDRESS=paweld16testowy.us-east-1.elasticbeanstalk.com
+      - REACT_APP_FRONTEND_PORT=3000
+      - REACT_APP_BACKEND_PORT=8080
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -21,8 +21,8 @@ resource "aws_subnet" "tic-tac-toe-subnet" {
 
 # Tworzy grupę bezpieczeństwa z regułami dla ruchu przychodzącego (ingress) i wychodzącego (egress), umożliwiając jedynie ruch na niezbędnych portach.
 # Zapewnia to bezpieczeństwo przed atakami na wolne porty.
-resource "aws_security_group" "tic_tac_toe_sg" {
-    name        = "tic_tac_toe_sg"
+resource "aws_security_group" "tic-tac-toe-sg" {
+    name        = "tic-tac-toe-sg"
     vpc_id      = aws_vpc.tic-tac-toe-vpc.id
     description = "Security group for accessing application and ec2 via SSH"
 
@@ -75,7 +75,7 @@ resource "aws_security_group" "tic_tac_toe_sg" {
     }
 
     tags = {
-        Name = "tic_tac_toe_sg"
+        Name = "tic-tac-toe-sg"
     }
 }
 

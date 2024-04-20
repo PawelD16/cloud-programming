@@ -1,9 +1,9 @@
 version: '3.8'
+
 services:
   backend:
-    build:
-      image: paweld16/cloud-programming-backend:latest
-      container_name: backend
+    image: paweld16/cloud-programming-backend:latest
+    container_name: backend
     environment:
       - METHOD=${METHOD}
       - IP_ADDRESS=${IP_ADDRESS}
@@ -15,9 +15,8 @@ services:
       - app-network
 
   frontend:
-    build:
-      image: paweld16/cloud-programming-frontend:latest
-      container_name: frontend
+    image: paweld16/cloud-programming-frontend:latest
+    container_name: frontend
     environment:
       - REACT_APP_METHOD=${METHOD}
       - REACT_APP_IP_ADDRESS=${IP_ADDRESS}
