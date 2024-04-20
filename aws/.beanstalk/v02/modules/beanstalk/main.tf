@@ -1,12 +1,12 @@
-resource "aws_s3_bucket" "tic_tac_toe_app" {
-    bucket = "tic_tac_toe_terraform"
+resource "aws_s3_bucket" "tic-tac-toe-app" {
+    bucket = "tic-tac-toe-terraform"
     acl    = "private"
     tags = {
-        Name = "tic_tac_toe_s3"
+        Name = "tic-tac-toe-s3"
     }
 }
 
-data "template_file" "docker_compose" {
+data "template_file" "docker-compose" {
   template = file("${path.module}/docker-compose.tpl")
 
   vars = {
@@ -17,39 +17,39 @@ data "template_file" "docker_compose" {
   }
 }
 
-resource "local_file" "docker_compose_yml" {
-  content  = data.template_file.docker_compose.rendered
+resource "local_file" "docker-compose-yml" {
+  content  = data.template_file.docker-compose.rendered
   filename = "${path.module}/docker-compose.yml"
 }
 
-resource "aws_s3_bucket_object" "tic_tac_toe_deployment" {
-    bucket = aws_s3_bucket.tic_tac_toe_app.bucket
-    source = local_file.docker_compose_yml.filename
+resource "aws_s3_bucket_object" "tic-tac-toe-deployment" {
+    bucket = aws_s3_bucket.tic-tac-toe-app.bucket
+    source = local_file.docker-compose-yml.filename
     key    = "docker-compose.yml"
-    depends_on = [local_file.docker_compose_yml]
+    depends_on = [local_file.docker-compose-yml]
 }
 
-resource "aws_elastic_beanstalk_application" "tic_tac_toe_app" {
-    name        = "tic_tac_toe_app"
+resource "aws_elastic_beanstalk_application" "tic-tac-toe-app" {
+    name        = "tic-tac-toe-app"
     description = "Simple ASP .NET Core + React tic tac toe game"
 }
 
-resource "aws_elastic_beanstalk_application_version" "tic_tac_toe_app" {
-    name        = "tic_tac_toe_app"
-    application = aws_elastic_beanstalk_application.tic_tac_toe_app.name
+resource "aws_elastic_beanstalk_application_version" "tic-tac-toe-app" {
+    name        = "tic-tac-toe-app"
+    application = aws_elastic_beanstalk_application.tic-tac-toe-app.name
     description = "Simple ASP .NET Core + React tic tac toe game"
     key         = "docker-compose.yml"
-    bucket      = aws_s3_bucket.tic_tac_toe_app.bucket
-    depends_on  = [aws_s3_bucket_object.tic_tac_toe_deployment]
+    bucket      = aws_s3_bucket.tic-tac-toe-app.bucket
+    depends_on  = [aws_s3_bucket_object.tic-tac-toe-deployment]
 }
 
 
-resource "aws_elastic_beanstalk_environment" "tic_tac_toe_env" {
-    name                = "tic_tac_toe_env"
-    application         = aws_elastic_beanstalk_application.tic_tac_toe_app.id
+resource "aws_elastic_beanstalk_environment" "tic-tac-toe-env" {
+    name                = "tic-tac-toe-env"
+    application         = aws_elastic_beanstalk_application.tic-tac-toe-app.id
     solution_stack_name = "64bit Amazon Linux 2023 v4.3.0 running Docker"
     tier                = "WebServer"
-    version_label       = aws_elastic_beanstalk_application_version.tic_tac_toe_app.name
+    version_label       = aws_elastic_beanstalk_application_version.tic-tac-toe-app.name
     cname_prefix        = var.cname_prefix
 
     setting {
@@ -106,12 +106,12 @@ resource "aws_elastic_beanstalk_environment" "tic_tac_toe_env" {
         value     = "true"
     }
 
-    dynamic "setting" {
-        for_each = local.app_env
-        content {
-            namespace = "aws:elasticbeanstalk:application:environment"
-            name      = setting.key
-            value     = setting.value
-        }
-    }
+    # dynamic "setting" {
+    #    for_each = local.app_env
+    #    content {
+    #        namespace = "aws:elasticbeanstalk:application:environment"
+    #        name      = setting.key
+    #        value     = setting.value
+    #    }
+    # }
 }

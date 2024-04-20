@@ -24,12 +24,3 @@ variable "vpc_id" {
 variable "subnet_id" {
     type = string
 }
-
-locals {
-    app_env = {
-        METHOD          = var.method
-        IP_ADDRESS      = aws_elastic_beanstalk_environment.tic_tac_toe_env.cname
-        FRONTEND_PORT   = var.frontend_port
-        BACKEND_PORT    = var.backend_port
-  }
-}
