@@ -9,7 +9,7 @@ variable "backend_port" {
 
 variable "frontend_port" {
   type    = number
-  default = 3000
+  default = 80
 }
 
 variable "method" {
