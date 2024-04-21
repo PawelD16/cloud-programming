@@ -15,7 +15,9 @@ provider "aws" {
 }
 
 module "network" {
-  source = "./modules/network/"
+  source        = "./modules/network/"
+  backend_port  = var.backend_port
+  frontend_port = var.frontend_port
 }
 
 module "beanstalk" {
@@ -23,7 +25,7 @@ module "beanstalk" {
   cname_prefix  = var.cname_prefix
   vpc_id        = module.network.vpc_id
   subnet_id     = module.network.subnet_id
-  backend_port  = var.backend_port 
+  backend_port  = var.backend_port
   frontend_port = var.frontend_port
   method        = var.method
 }

@@ -5,12 +5,12 @@ services:
     image: paweld16/cloud-programming-backend:latest
     container_name: backend
     environment:
-      - METHOD=http
-      - IP_ADDRESS=paweld16testowy.us-east-1.elasticbeanstalk.com
-      - FRONTEND_PORT=80
-      - BACKEND_PORT=8080
+      - METHOD=${METHOD_ENV}
+      - IP_ADDRESS=${IP_ADDRESS_ENV}
+      - FRONTEND_PORT=${FRONTEND_PORT_ENV}
+      - BACKEND_PORT=${BACKEND_PORT_ENV}
     ports:
-      - "8080:8080"
+      - "${BACKEND_PORT_ENV}:${BACKEND_PORT_ENV}"
     networks:
       - app-network
 
@@ -18,12 +18,12 @@ services:
     image: paweld16/cloud-programming-frontend:latest
     container_name: frontend
     environment:
-      - REACT_APP_METHOD=http
-      - REACT_APP_IP_ADDRESS=paweld16testowy.us-east-1.elasticbeanstalk.com
-      - REACT_APP_FRONTEND_PORT=80
-      - REACT_APP_BACKEND_PORT=8080
+      - REACT_APP_METHOD=${METHOD_ENV}
+      - REACT_APP_IP_ADDRESS=${IP_ADDRESS_ENV}
+      - REACT_APP_FRONTEND_PORT=${FRONTEND_PORT_ENV}
+      - REACT_APP_BACKEND_PORT=${BACKEND_PORT_ENV}
     ports:
-      - "80:3000"
+      - "${FRONTEND_PORT_ENV}:${FRONTEND_PORT_ENV}"
     networks:
       - app-network
 

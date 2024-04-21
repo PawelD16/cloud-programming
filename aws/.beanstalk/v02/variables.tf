@@ -8,11 +8,11 @@ variable "backend_port" {
 }
 
 variable "frontend_port" {
-    type    = number
-    default = 3000
+  type    = number
+  default = 3000
 }
 
 variable "method" {
-    type    = string
-    default = "http"
+  type    = string
+  default = "http"
 }
