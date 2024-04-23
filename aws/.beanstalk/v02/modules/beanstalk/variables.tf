@@ -3,24 +3,29 @@ variable "cname_prefix" {
 }
 
 variable "backend_port" {
-  type    = number
-  default = 8080
+  type = number
 }
 
 variable "frontend_port" {
-    type    = number
-    default = 3000
+  type = number
 }
 
 variable "method" {
-    type    = string
-    default = "http"
+  type = string
 }
 
 variable "vpc_id" {
-    type = string
+  type = string
 }
 
 variable "subnet_id" {
-    type = string
+  type = string
+}
+
+locals {
+  env_variables = {
+    METHOD_ENV        = var.method
+    FRONTEND_PORT_ENV = var.frontend_port
+    BACKEND_PORT_ENV  = var.backend_port
+  }
 }

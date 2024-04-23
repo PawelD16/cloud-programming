@@ -38,6 +38,7 @@ async function post(url, body) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
+    mode:'cors'
   });
 
   if (!response.ok) {

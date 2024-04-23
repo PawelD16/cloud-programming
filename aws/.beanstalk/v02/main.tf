@@ -3,9 +3,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.43"
+      version = "~> 4.16"
     }
   }
+
+  required_version = ">= 1.2.0"
 }
 
 provider "aws" {
@@ -13,7 +15,9 @@ provider "aws" {
 }
 
 module "network" {
-  source = "./modules/network/"
+  source        = "./modules/network/"
+  backend_port  = var.backend_port
+  frontend_port = var.frontend_port
 }
 
 module "beanstalk" {
@@ -21,7 +25,7 @@ module "beanstalk" {
   cname_prefix  = var.cname_prefix
   vpc_id        = module.network.vpc_id
   subnet_id     = module.network.subnet_id
-  backend_port  = var.backend_port 
+  backend_port  = var.backend_port
   frontend_port = var.frontend_port
   method        = var.method
 }

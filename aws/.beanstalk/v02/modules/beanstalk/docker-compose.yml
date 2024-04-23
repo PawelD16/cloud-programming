@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    image: paweld16/cloud-programming-backend:latest
+    container_name: backend
+    environment:
+      - METHOD=${METHOD_ENV}
+      - IP_ADDRESS=${IP_ADDRESS_ENV}
+      - FRONTEND_PORT=${FRONTEND_PORT_ENV}
+      - BACKEND_PORT=${BACKEND_PORT_ENV}
+    ports:
+      - "${BACKEND_PORT_ENV}:${BACKEND_PORT_ENV}"
+    networks:
+      - app-network
+
+  frontend:
+    image: paweld16/cloud-programming-frontend:latest
+    container_name: frontend
+    environment:
+      - REACT_APP_METHOD=${METHOD_ENV}
+      - REACT_APP_IP_ADDRESS=${IP_ADDRESS_ENV}
+      - REACT_APP_FRONTEND_PORT=${FRONTEND_PORT_ENV}
+      - REACT_APP_BACKEND_PORT=${BACKEND_PORT_ENV}
+    ports:
+      - "${FRONTEND_PORT_ENV}:${FRONTEND_PORT_ENV}"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
