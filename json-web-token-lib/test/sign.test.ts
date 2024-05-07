@@ -1,4 +1,5 @@
 import sign from "../src/sign"
+import { ONE_DAY_IN_MILLIS } from "../src/sign";
 
 describe("sign", () => {
     const secret = "defaultSecret";
@@ -8,14 +9,14 @@ describe("sign", () => {
         const jwt1 = sign({
             payload: { name: "Pawel" },
             secret: `${secret} - 1`,
-            options: { expiresIn: 8.64e7 },
+            options: { expiresIn: ONE_DAY_IN_MILLIS },
         })
             .split(".")[2];
 
         const jwt2 = sign({
             payload: { name: "Pawel" },
             secret: `${secret} - 2`,
-            options: { expiresIn: 8.64e7 },
+            options: { expiresIn: ONE_DAY_IN_MILLIS },
         })
             .split('.')[2];
 
@@ -27,7 +28,7 @@ describe("sign", () => {
         const jwt1 = sign({
             payload: { name: "Pawel" },
             secret: `${secret} - 1`,
-            options: { expiresIn: 8.64e7 },
+            options: { expiresIn: ONE_DAY_IN_MILLIS },
         })
             .split('.')[1];
 

@@ -1,7 +1,9 @@
 import crypto from "crypto";
 
+export const ONE_DAY_IN_MILLIS = 8.64e7;
+
 const DEFAULT_OPTIONS = {
-    expiresIn: 8.64e7 // this is 1 day
+    expiresIn: ONE_DAY_IN_MILLIS // this is 1 day
 };
 
 const DEFAULT_HASH_ALGORITHM = "SHA256";

@@ -1,5 +1,6 @@
 
 const INVALID_JWT = "Invalid JWT";
+
 export interface DecodeInput {
     token: string
 };

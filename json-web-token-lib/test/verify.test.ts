@@ -1,5 +1,6 @@
 import verify from "../src/verify"
 import sign from "../src/sign";
+import { ONE_DAY_IN_MILLIS } from "../src/sign";
 
 describe("verify", () => {
     const secret1 = "secret1";
@@ -42,7 +43,7 @@ describe("verify", () => {
             payload: { name: name },
             secret: secret1,
             options: {
-                expiresIn: -8.64e7
+                expiresIn: -ONE_DAY_IN_MILLIS
             }
         });
 
