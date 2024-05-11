@@ -1,39 +1,28 @@
-import React from 'react';
-import './App.css';
-import Game from './components/Game';
-import { get } from './services/GameService'
-
-
-import { signOut } from 'aws-amplify/auth';
+import React, { useState } from 'react';
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 
-Amplify.configure({
-  Auth: {
-    Cognito: {
-      userPoolClientId: '55qngui1q738gnllv72scu0nla',
-      userPoolId: 'us-east-1_I7yOuIPRv',
-    }
-  }
-});
+import './App.css';
+import Game from './components/Game';
+import { awsConfig, handleSignOut } from './services/AmplifyService'
+import { helloWorldCall } from './services/GameService';
 
+Amplify.configure(awsConfig);
 
 const App = () => {
+  const [debugMessage, setDebugMessage] = useState('');
 
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error('Error signing out: ', error);
-    }
-  };
+  const appendDebugMessage = async () => setDebugMessage(`${debugMessage} ${await helloWorldCall()}`);
 
   return (
     <div className="App">
       <main>
-        <Game />
-        <button onClick={async () => console.log(await get("HelloWorld"))}>Hello world test</button>
+        <Game/>
+        
+        <button onClick={appendDebugMessage}>Hello world connection test</button>
         <button onClick={handleSignOut}>Sign Out</button>
+
+        <div>{debugMessage}</div>
       </main>
     </div>
   );

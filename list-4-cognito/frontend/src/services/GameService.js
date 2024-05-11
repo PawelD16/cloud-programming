@@ -66,6 +66,8 @@ export const post = async (url, body) => makeApiCall('POST', url, true, body)
 
 export const get = async (url) => makeApiCall('GET', url, false);
 
+export const helloWorldCall = async () => get("HelloWorld");
+
 export const startGame = async (playerName) => post("Start", buildPlayerObject(playerName));
 
 export const connectToRandomGame = async (playerName) => post("ConnectToRandom", buildPlayerObject(playerName));
