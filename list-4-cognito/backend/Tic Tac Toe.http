@@ -1,0 +1,6 @@
+@Tic_Tac_Toe_HostAddress = http://localhost:5233
+
+GET {{Tic_Tac_Toe_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
