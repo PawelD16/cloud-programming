@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Board from "./Board";
 import {
   startGame,
@@ -20,6 +20,7 @@ import {
 const Game = () => {
   const [connection, setConnection] = useState(undefined);
   const [board, setBoard] = useState(EMPTY_BOARD());
+  const [currentGameId, setCurrentGameId] = useState(undefined);
 
   const gameIdRef = useRef(undefined);
   const playerNameRef = useRef(undefined);
@@ -27,11 +28,11 @@ const Game = () => {
   const isFinishedRef = useRef(false);
 
   // begin :: SignalR
-  const handleLeaveGame = () => {
+  const handleLeaveGame = useCallback(() => {
     if (connection && gameIdRef.current) {
       leaveGameSignalR(connection, gameIdRef.current);
     }
-  };
+  }, [connection]);
 
   useEffect(() => {
     const startConnection = async () => {
@@ -45,6 +46,7 @@ const Game = () => {
     handleLeaveGame();
 
     gameIdRef.current = newGameId;
+    setCurrentGameId(newGameId)
   };
 
   useEffect(() => {
@@ -72,7 +74,7 @@ const Game = () => {
     return () => {
       connection?.stop();
     };
-  }, [connection]);
+  }, [connection, handleLeaveGame]);
   // end :: SignalR
 
   const handleNewBoard = (moveStatus, cellIndex, currentSymbol) => {
@@ -86,7 +88,6 @@ const Game = () => {
           newBoard[cellIndex] = currentSymbol;
           isFinishedRef.current = true;
           handleWin(currentSymbol, tictoeRef.current);
-
           break;
         case MOVE_STATUS_MAPPING.draw:
           alert("Draw");
@@ -181,6 +182,10 @@ const Game = () => {
           placeholder="Enter Game ID to connect" />
 
         <button onClick={handleConnectToGame}>Connect to Game</button>
+      </div>
+
+      <div>
+        <span>Current game id: {currentGameId}</span>
       </div>
 
       <Board board={board} handleMove={handleMove} />

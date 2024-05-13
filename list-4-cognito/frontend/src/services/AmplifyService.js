@@ -1,7 +1,7 @@
 import { signOut } from 'aws-amplify/auth';
 
-const POOL_CLIENT_ID = process.env.REACT_APP_POOL_CLIENT_ID || '55qngui1q738gnllv72scu0nla';
-const POOL_ID = process.env.REACT_APP_POOL_ID || 'us-east-1_I7yOuIPRv';
+const POOL_CLIENT_ID = process.env.REACT_APP_POOL_CLIENT_ID || '2semrvdld5h3ogmrev6f0dmgnc';
+const POOL_ID = process.env.REACT_APP_POOL_ID || 'us-east-1_xYvv1ykCs';
 
 export const awsConfig = {
     Auth: {
@@ -12,10 +12,21 @@ export const awsConfig = {
     }
 };
 
+export const signUpFormConfig = {
+    signUp: [
+        {
+            label: "Name",
+            placeholder: "Enter your full name",
+            name: "name",
+            required: true,
+            displayOrder: 1,
+            type: "string",
+        },
+    ]
+};
+
+
 export const handleSignOut = async () => {
-    try {
-        await signOut();
-    } catch (error) {
-        console.error('Error signing out: ', error);
-    }
+    await signOut()
+        .catch((error) => console.error("Error signing out: ", error));
 };

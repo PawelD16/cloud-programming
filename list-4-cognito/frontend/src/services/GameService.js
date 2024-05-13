@@ -1,5 +1,5 @@
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import { fetchAuthSession } from 'aws-amplify/auth';
+import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import { fetchAuthSession } from "aws-amplify/auth";
 
 const METHOD = process.env.REACT_APP_METHOD || "http";
 const ENVIRONMENT_IP_ADDRRESS = process.env.REACT_APP_IP_ADDRESS || "localhost";
@@ -37,7 +37,7 @@ const getJWTToken = async () => {
     const session = await fetchAuthSession();
     return session.tokens.idToken;
   } catch (error) {
-    console.error('Error getting authentication token:', error);
+    console.error("Error getting authentication token:", error);
     return null;
   }
 }
@@ -48,11 +48,11 @@ export const makeApiCall = async (method, url, isJson, body) => {
   const response = await fetch(`${API_BASE_URL}/${url}`, {
     method,
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${authToken}`,
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${authToken}`,
     },
     ...(body ? { body: JSON.stringify(body) } : {}),
-    //mode: 'cors'
+    // mode: 'cors'
   });
 
   if (!response.ok) {
@@ -62,9 +62,9 @@ export const makeApiCall = async (method, url, isJson, body) => {
   return isJson ? response.json() : response.text();
 }
 
-export const post = async (url, body) => makeApiCall('POST', url, true, body)
+export const post = async (url, body) => makeApiCall("POST", url, true, body)
 
-export const get = async (url) => makeApiCall('GET', url, false);
+export const get = async (url) => makeApiCall("GET", url, false);
 
 export const helloWorldCall = async () => get("HelloWorld");
 
