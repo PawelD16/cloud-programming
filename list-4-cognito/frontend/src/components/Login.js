@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { signIn } from "aws-amplify/auth"
 
 function Login({ onLoginSuccess }) {
@@ -8,10 +8,10 @@ function Login({ onLoginSuccess }) {
     const handleLogin = async () => {
         try {
             const user = await signIn(email, password);
-            console.log('Login successful:', user);
+            console.log("Login successful:", user);
             onLoginSuccess(user);
         } catch (error) {
-            console.error('Login error:', error);
+            console.error("Login error:", error);
         }
     };
 
